@@ -116,7 +116,7 @@ const createSidewinder = grid => {
 
 const container = document.getElementById('maze-container')
 console.log(container)
-const grid = createGrid(26, 26)
+const grid = createGrid(50, 50)
 createSidewinder(grid.grid)
 grid.grid.forEach(row => {
   const domrow = document.createElement('div')
