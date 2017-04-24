@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>maze</title>
+</head>
+<body>
+  <div id="maze-container"></div>
+</body>
+<script src="index.js"></script>
+<style>
+  #maze-container {
+    width: 600px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    border-top: solid 4px black;
+    border-left: solid 4px black;
+  }
+  .row {
+    display: flex;
+    flex:1;
+  }
+  .cell {
+    flex: 1;
+    border-right: black solid 4px;
+    border-bottom: black solid 4px;
+  }
+  .east {
+    border-right: 4px solid white;
+  }
+  .south {
+    border-bottom: 4px solid white;
+  }
+</style>
+</html>
