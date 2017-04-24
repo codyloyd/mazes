@@ -1,4 +1,25 @@
+const createDistancesObject = require('./distances')
+
 const createCell = (row, column) => {
+  const distances = function() {
+    distancesObject = createDistancesObject(this)
+    let frontier = [this]
+    while (frontier.length) {
+      const newFrontier = []
+      frontier.forEach(cell => {
+        cell.links.forEach(linkedCell => {
+          if (Object.keys(distancesObject.cells).indexOf(linkedCell.id) > -1) {
+            return
+          }
+          distancesObject.cells[linkedCell.id] =
+            distancesObject.cells[cell.id] + 1
+          newFrontier.push(linkedCell)
+        })
+      })
+      frontier = newFrontier
+    }
+    return distancesObject
+  }
   const link = function(cell, bidi = true) {
     this.links.push(cell)
     if (bidi) cell.link(this, false)
@@ -25,6 +46,8 @@ const createCell = (row, column) => {
     unlink,
     isLinked,
     neighbors,
+    distances,
+    id: `r${row}c${column}`,
     north: undefined,
     south: undefined,
     east: undefined,
@@ -55,6 +78,13 @@ const createGrid = (rows, columns) => {
     return grid
   }
 
+  const contentsOfCell = function(grid, cell) {
+    const distances = this.distancesObject.pathTo(grid[5][0])
+    if (distances && distances[cell.id]) {
+      return distances[cell.id].toString(36)
+    }
+    return ' '
+  }
   const configureCells = function(grid) {
     grid.forEach(row =>
       row.forEach(cell => {
@@ -74,7 +104,7 @@ const createGrid = (rows, columns) => {
       let bottom = '+'
       row.forEach(cell => {
         if (cell == undefined) cell = createCell(-1, -1)
-        const body = '   '
+        const body = ` ${contentsOfCell(this.grid, cell)} `
         const east_bound = cell.isLinked(cell.east) ? ' ' : '|'
         top += body + east_bound
         const south_bound = cell.isLinked(cell.south) ? '   ' : '---'
@@ -90,7 +120,7 @@ const createGrid = (rows, columns) => {
     rows,
     columns,
     toString,
-    toHashString,
+    distances: {},
     grid: prepareGrid()
   }
 }

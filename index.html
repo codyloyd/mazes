@@ -18,12 +18,16 @@
     flex-direction: column;
     border-top: solid 1px black;
     border-left: solid 1px black;
+    font-size: 12px;
   }
   .row {
     display: flex;
     flex:1;
   }
   .cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex: 1;
     border-right: black solid 1px;
     border-bottom: black solid 1px;
@@ -33,6 +37,15 @@
   }
   .south {
     border-bottom: 1px solid white;
+  }
+  .path {
+    background: #a4a1af;
+  }
+  .path.east {
+    border-right-color: #a5a1af;
+  }
+  .path.south {
+    border-bottom-color: #a4a1af;
   }
 </style>
 </html>

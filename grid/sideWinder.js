@@ -20,6 +20,7 @@ const createSidewinder = grid => {
   })
 }
 
-const grid = createGrid(10, 26)
+const grid = createGrid(6, 14)
 createSidewinder(grid.grid)
+const distances = grid.grid[1][1].distances()
 console.log(grid.toString())
