@@ -4,48 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>maze</title>
+  <title>mazes</title>
 </head>
 <body>
-  <div id="maze-container"></div>
+  <h2>mazes</h2>
+  <ul>
+    <li><a href="plainMaze.html">Plain Ole Maze</a></li>
+  </ul>
 </body>
-<script src="bundle.js"></script>
 <style>
-  #maze-container {
-    width: 98vh;
-    height: 98vh;
-    display: flex;
-    flex-direction: column;
-    border-top: solid 1px black;
-    border-left: solid 1px black;
-    font-size: 6px;
+  * {
+    font-family: Courier New, Courier, monospace;
   }
-  .row {
-    display: flex;
-    flex:1;
+  a {
+    color:lightseagreen;
+    font-weight: bold;
+    text-decoration: none;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    padding-right: 1em;
+    padding-left: 1em;
+    transition: all .2s;
   }
-  .cell {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    border-right: black solid 1px;
-    border-bottom: black solid 1px;
-  }
-  .east {
-    border-right: 1px solid white;
-  }
-  .south {
-    border-bottom: 1px solid white;
-  }
-  .path {
-    background: #a4a1af;
-  }
-  .path.east {
-    border-right-color: #a5a1af;
-  }
-  .path.south {
-    border-bottom-color: #a4a1af;
+  a:hover {
+    background: #ffedfc;
+    box-shadow: 4px 4px 6px -2px rgba(0, 0, 0, 0.2);
   }
 </style>
 </html>

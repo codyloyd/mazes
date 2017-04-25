@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>plain ole maze</title>
+</head>
+<body>
+  <div id="page-container">
+    <div id="maze-container"></div>
+    <div id="controls">
+      <form id='generate-maze'>
+        <input type="number" min="10" max="200" name="size" placeholder="size">
+        <input type="submit" value="Generate Maze">
+      </form>
+    </div>
+  </div>
+</body>
+<script src="plainMaze.bundle.js"></script>
+<style>
+  #page-container {
+    display: flex;
+  }
+  #controls {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  #maze-container {
+    width: 98vh;
+    height: 98vh;
+    display: flex;
+    flex-direction: column;
+    border-top: solid 1px black;
+    border-left: solid 1px black;
+    font-size: 6px;
+  }
+  .row {
+    display: flex;
+    flex:1;
+  }
+  .cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    border-right: black solid 1px;
+    border-bottom: black solid 1px;
+  }
+  .east {
+    border-right: 1px solid white;
+  }
+  .south {
+    border-bottom: 1px solid white;
+  }
+  .path {
+    background: #a4a1af;
+  }
+  .path.east {
+    border-right-color: #a5a1af;
+  }
+  .path.south {
+    border-bottom-color: #a4a1af;
+  }
+</style>
+</html>

@@ -23,13 +23,6 @@ const createGrid = (rows, columns) => {
     return grid
   }
 
-  const contentsOfCell = function(grid, cell) {
-    const distances = this.distancesObject.pathTo(grid[0][0])
-    if (distances && distances[cell.id]) {
-      return distances[cell.id].toString(36)
-    }
-    return ' '
-  }
   const configureCells = function(grid) {
     grid.forEach(row =>
       row.forEach(cell => {
@@ -49,7 +42,7 @@ const createGrid = (rows, columns) => {
       let bottom = '+'
       row.forEach(cell => {
         if (cell == undefined) cell = createCell(-1, -1)
-        const body = ` ${contentsOfCell(this.grid, cell)} `
+        const body = `   `
         const east_bound = cell.isLinked(cell.east) ? ' ' : '|'
         top += body + east_bound
         const south_bound = cell.isLinked(cell.south) ? '   ' : '---'
@@ -65,7 +58,6 @@ const createGrid = (rows, columns) => {
     rows,
     columns,
     toString,
-    distances: {},
     grid: prepareGrid()
   }
 }
