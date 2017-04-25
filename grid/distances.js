@@ -13,11 +13,17 @@ const distances = function(root) {
     }
     return breadcrumbs
   }
+  const max = function() {
+    return Object.keys(this.cells).reduce((max, cell) => {
+      return this.cells[cell] > this.cells[max] ? cell : max
+    }, this.root.id)
+  }
   return {
     root,
     pathTo,
+    max,
     cells: {
-      [root.id]: 0
+      [root.id]: 1
     }
   }
 }

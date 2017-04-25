@@ -1,0 +1,38 @@
+{
+  "name": "mazes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "npm-watch"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "./",
+        "grid"
+      ],
+      "extensions": [
+        ".js"
+      ],
+      "ignore": [
+        "bundle.js"
+      ]
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codyloyd/mazes.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codyloyd/mazes/issues"
+  },
+  "homepage": "https://github.com/codyloyd/mazes#readme",
+  "dependencies": {
+    "npm-watch": "^0.1.8"
+  }
+}
