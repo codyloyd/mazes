@@ -1,6 +1,6 @@
 module.exports = {
-  entry: './plainMaze.js',
+  entry: './aldousBroder.js',
   output: {
-    filename: 'plainMaze.bundle.js'
+    filename: 'aldousBroder.bundle.js'
   }
 }

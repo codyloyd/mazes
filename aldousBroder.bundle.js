@@ -68,9 +68,70 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports) {
+
+const distances = function(root) {
+  const pathTo = function(goal) {
+    let currentCell = goal
+    const breadcrumbs = distances(this.root)
+    breadcrumbs[currentCell.id] = this.cells[currentCell.id]
+    while (currentCell != this.root) {
+      currentCell.links.forEach(neighbor => {
+        if (this.cells[neighbor.id] < this.cells[currentCell.id]) {
+          breadcrumbs[neighbor.id] = this.cells[neighbor.id]
+          currentCell = neighbor
+        }
+      })
+    }
+    return breadcrumbs
+  }
+
+  const max = function() {
+    return Object.keys(this.cells).reduce((max, cell) => {
+      return this.cells[cell] > this.cells[max] ? cell : max
+    }, this.root.id)
+  }
+
+  return {
+    root,
+    pathTo,
+    max,
+    cells: {
+      [root.id]: 1
+    }
+  }
+}
+
+module.exports = distances
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+const createAldousBroder = grid => {
+  let cell = grid.grid[0][0]
+  let unvisited = grid.rows * grid.columns - 1
+  while (unvisited > 0) {
+    const neighbors = cell.neighbors()
+    const neighbor = neighbors[Math.floor(Math.random() * neighbors.length)]
+    if (!neighbor.links.length) {
+      cell.link(neighbor)
+      unvisited -= 1
+    }
+    cell = neighbor
+  }
+  return grid
+}
+
+module.exports = createAldousBroder
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const createDistancesObject = __webpack_require__(1)
+const createDistancesObject = __webpack_require__(0)
 const createCell = __webpack_require__(3)
 
 const createGrid = (rows, columns) => {
@@ -144,82 +205,10 @@ module.exports = createGrid
 
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-const distances = function(root) {
-  const pathTo = function(goal) {
-    let currentCell = goal
-    const breadcrumbs = distances(this.root)
-    breadcrumbs[currentCell.id] = this.cells[currentCell.id]
-    while (currentCell != this.root) {
-      currentCell.links.forEach(neighbor => {
-        if (this.cells[neighbor.id] < this.cells[currentCell.id]) {
-          breadcrumbs[neighbor.id] = this.cells[neighbor.id]
-          currentCell = neighbor
-        }
-      })
-    }
-    return breadcrumbs
-  }
-
-  const max = function() {
-    return Object.keys(this.cells).reduce((max, cell) => {
-      return this.cells[cell] > this.cells[max] ? cell : max
-    }, this.root.id)
-  }
-
-  return {
-    root,
-    pathTo,
-    max,
-    cells: {
-      [root.id]: 1
-    }
-  }
-}
-
-module.exports = distances
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-const createGrid = __webpack_require__(0)
-
-const createSidewinder = grid => {
-  grid.forEach(row => {
-    let run = []
-    row.forEach(cell => {
-      run.push(cell)
-      const at_eastern_bound = cell.east === undefined
-      const at_northern_bound = cell.north === undefined
-      const should_close_run =
-        at_eastern_bound || (!at_northern_bound && Math.random() > 0.5)
-      if (should_close_run) {
-        const member = run[Math.floor(Math.random() * run.length)]
-        if (member.north) member.link(member.north)
-        run = []
-      } else {
-        cell.link(cell.east)
-      }
-    })
-  })
-}
-
-module.exports = createSidewinder
-
-const parseId = function(id) {
-  return id.match(/(\d+)/g)
-}
-
-
-/***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const createDistancesObject = __webpack_require__(1)
+const createDistancesObject = __webpack_require__(0)
 
 const createCell = (row, column) => {
   const distances = function() {
@@ -284,8 +273,8 @@ module.exports = createCell
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const createGrid = __webpack_require__(0)
-const createSidewinder = __webpack_require__(2)
+const createGrid = __webpack_require__(2)
+const createAldousBroder = __webpack_require__(1)
 
 const container = document.getElementById('maze-container')
 const form = document.getElementById('generate-maze')
@@ -298,10 +287,10 @@ form.addEventListener('submit', e => {
 // const distances = grid.grid[29][0].distances()
 // grid.distances = distances.pathTo(grid.grid[29][29])
 
-const generateMaze = (size = 30) => {
+const generateMaze = (size = 20) => {
   container.innerHTML = ''
   const grid = createGrid(size, size)
-  createSidewinder(grid.grid)
+  createAldousBroder(grid)
   grid.grid.forEach(row => {
     const domrow = document.createElement('div')
     domrow.classList.add('row')
@@ -324,7 +313,7 @@ const generateMaze = (size = 30) => {
   })
 }
 
-generateMaze(60)
+generateMaze(20)
 
 
 /***/ })

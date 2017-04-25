@@ -9,6 +9,11 @@ const createGrid = (rows, columns) => {
     return undefined
   }
 
+  const randomCell = () => {
+    const rand = max => Math.floor(Math.random() * max)
+    return this.grid[0][0]
+  }
+
   const prepareGrid = function() {
     let grid = []
     for (let i = 0; i < rows; i++) {
@@ -58,6 +63,7 @@ const createGrid = (rows, columns) => {
     rows,
     columns,
     toString,
+    randomCell,
     grid: prepareGrid()
   }
 }
